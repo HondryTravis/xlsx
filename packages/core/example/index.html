@@ -4,10 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>xlsx</title>
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .native-sheet-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .native-sheet-top {
+            display: flex;
+        }
+        .native-sheet-content {
+            display: flex;
+        }
+        #xlsx {
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Core</h1>
+    <div class="native-sheet-container">
+        <div id="xlsx">
+
+        </div>
+    </div>
 </body>
-<script type='module' src="index.js"></script>
+<script type='module'>
+    import NativeSheet from '../dist/core.es.js'
+
+    window.$s = NativeSheet({
+        container: '#xlsx',
+        width: 500,
+        height: 500,
+    })
+
+
+
+    $s.render()
+
+
+    window.addEventListener('resize', ()=> {
+        $s.fire('resize')
+    })
+</script>
 </html>

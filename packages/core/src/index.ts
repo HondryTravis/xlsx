@@ -1,4 +1,8 @@
+import { NativeSheet } from './sheet'
 
-export function say(str: string) {
-    console.log(str)
+
+export {
+    NativeSheet
 }
+
+export default NativeSheet

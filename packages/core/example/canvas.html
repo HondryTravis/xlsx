@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>test</h1>
+    <canvas></canvas>
+</body>
+<script>
+
+    /* global window */
+    // 设备物理dpr
+    function dpr() {
+        return window.devicePixelRatio || 1;
+    }
+
+    // 细线宽度
+    function thinLineWidth() {
+        return dpr() - 0.5;
+    }
+    // 实际像素
+    function npx(px) {
+        return parseInt(px * dpr(), 10);
+    }
+
+    // 解决0.5宽度细线
+    function npxLine(px) {
+        const n = npx(px);
+        return n > 0 ? n - 0.5 : 0.5;
+    }
+
+
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+
+    canvas.width = 600;
+    canvas.height = 800;
+
+    const [w, h] = [canvas.width, canvas.height];
+    ctx.scale(dpr(), dpr());
+
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+
+    canvas.width = npx(w);
+    canvas.height = npx(h);
+
+    console.log(ctx.strokeStyle)
+
+    ctx.lineWidth = thinLineWidth;
+
+    ctx.beginPath()
+    // ctx.strokeStyle = '#e6e6e6';
+    ctx.strokeStyle = '#555';
+    ctx.moveTo(npxLine(0), npxLine(50));
+    ctx.lineTo(npxLine(1000), npxLine(50));
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath()
+    // ctx.strokeStyle = '#e6e6e6';
+    ctx.strokeStyle = '#555';
+    ctx.moveTo(npxLine(50), npxLine(0));
+    ctx.lineTo(npxLine(50), npxLine(1050));
+    ctx.stroke();
+
+    ctx.closePath();
+
+
+
+    window.attr = (name, value) => {
+
+        if (Reflect.has(ctx, name)) {
+
+            if (value) {
+                Reflect.set(ctx, name, value)
+            } else {
+                return Reflect.get(ctx, name)
+            }
+        }
+    }
+
+    // ctx.beginPath()
+    // ctx.rect(1, 200, 100, 200);
+    // ctx.stroke();
+    // ctx.closePath();
+
+    console.log([ctx])
+
+</script>
+</html>
